@@ -9,11 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.SecureRandom;
+import java.util.Scanner;
 
 public class AES {
 
 	private static SecretKeySpec secretkey;
 	private static byte[] key;
+	private static final String capital = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final String small = "abcdefghijklmnopqrstuvwxyz";
+	private static final String num = "0123456789";
+	private static final String special = "!@#$%^&*_=+-/";
 
 	void setKey(String your_key) {
 		MessageDigest sha = null;
@@ -60,5 +66,19 @@ public class AES {
 			Logger.getLogger(AES.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
+	}
+	private static SecureRandom random = new SecureRandom();
+
+
+
+	public static String generatePassword(int len, String dic)
+	{
+		String password = "";
+		for (int i = 0; i < len; i++)
+		{
+				int index = random.nextInt(dic.length());
+				password += dic.charAt(index);
+		}
+		return password;
 	}
 }
