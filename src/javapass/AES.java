@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.SecureRandom;
+import java.util.Scanner;
 
 public class AES {
 
@@ -61,4 +63,35 @@ public class AES {
 		}
 		return null;
 	}
+}
+
+
+public class passgen
+{
+
+    private static SecureRandom random = new SecureRandom();
+
+    private static final String capital = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String small = "abcdefghijklmnopqrstuvwxyz";
+    private static final String num = "0123456789";
+    private static final String special = "!@#$%^&*_=+-/";
+
+    public static String generatePassword(int len, String dic)
+		{
+	    String password = "";
+	    for (int i = 0; i < len; i++)
+			{
+	        int index = random.nextInt(dic.length());
+	        password += dic.charAt(index);
+	    }
+	    return password;
+    }
+
+    public static void main(String[] args)
+		{
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter Length");
+			int len=sc.nextInt();
+			generatePassword(len,capital+small+num+special);
+    }
 }
